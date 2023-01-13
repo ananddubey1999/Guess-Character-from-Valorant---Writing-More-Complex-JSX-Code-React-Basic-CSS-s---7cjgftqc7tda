@@ -129,16 +129,50 @@ const App = () => {
   const [score, setScore] = useState(0);
 
   const changeChar = () => {
-    
-  };
+    const random =Math.floor(Math.random()*19);
+    const random2= Math.floor(Math.random()*19);
+    const random3= Math.floor(Math.random()*19);
+    const random4= Math.floor(Math.random()*19);
 
+
+    const characterObj= {
+       name :characters[random].name,
+       role: characters[random].role,
+       abilities: characters[random].abilities,
+         options:[characters[random],characters[random2],characters[random3],characters[random4]]
+    }
+    console.log(characterObj);
+   setCurrChar(characterObj);
+  };
   const scoreHandler = (e) => {
-   
+    e.persist();
+    console.log( e._targetInst.key);
+    
+    if( e._targetInst.key ==0){
+      setScore(score + 1);
+    }
+    else{
+      setScore(score -1);
+    }
+    changeChar();
   };
 
   useEffect(() => {
-   
-  });
+    const random =Math.floor(Math.random()*19);
+    const random2= Math.floor(Math.random()*19);
+    const random3= Math.floor(Math.random()*19);
+    const random4= Math.floor(Math.random()*19);
+    
+    const characterObj= {
+       name :characters[random].name,
+       role: characters[random].role,
+       abilities: characters[random].abilities,
+      
+         options:[characters[random],characters[random2],characters[random3],characters[random4]]
+    }
+    console.log(characterObj);
+   setCurrChar(characterObj);
+  },[]);
   return (
     <div id="main">
       <div className="container">
@@ -149,8 +183,8 @@ const App = () => {
           <h4>Role: {currChar.role}</h4>
           {currChar.abilities.join()}
           <div className="options">
-            {currChar.options.map((option) => (
-              <button   onClick={scoreHandler}>
+            {currChar.options.map((option,index) => (
+              <button   onClick={(event)=>(scoreHandler(event))} key={index} >
                 {option.name}
               </button>
             ))}
